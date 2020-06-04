@@ -8,7 +8,7 @@
         document.getElementById('postSubmit').addEventListener('click', function(event){
             var req = new XMLHttpRequest();
             //let some_text = document.getElementById('post').value;
-            req.open('POST', '/insert', true)
+            req.open('POST', '/', true)
             req.setRequestHeader('Content-Type', 'application/json')
             req.onload = function () {
                 var response = JSON.parse(req.response)

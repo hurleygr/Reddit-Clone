@@ -38,14 +38,16 @@ router.get('/',function(req,res,next){
 });
 
 /* Insert Data. */
-router.post('/insert',function(req,res,next){
+router.post('/',function(req,res,next){
   var context = {};
   console.log('inserting', req.body, req.query)
-  mysql.pool.query("INSERT INTO workouts (name, reps, weight, date, lbs) VALUES (?)", [req.body], function(err, result){
+  values = [req.body.Exercise, req.body.Reps, req.body.Weight, req.body.Date, req.body.Unit]
+  mysql.pool.query("INSERT INTO workouts VALUES ($1, $2, $3 $4, $5)", values, function(err, result){
     if(err){
       next(err);
       return;
     }
+    console.log('insert result', result)
     context = req.body
     res.render('layout',context);
   });
@@ -54,7 +56,7 @@ router.post('/insert',function(req,res,next){
 /* Update Data. */
 router.post('/update', function(req, res, next) {
     var context = {};
-    pool.query("UPDATE workouts SET name=?, done=?, due=? WHERE id=? ",
+    mysql.pool.query("UPDATE workouts SET name=?, done=?, due=? WHERE id=? ",
       [req.query.name, req.query.done, req.query.due, req.query.id],
       function(err, result){
       if(err){
