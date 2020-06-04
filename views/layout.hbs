@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <form action="/insert", method="POST">
+      <input type=text, name="Exercise", placeholder="Exercise Name">
+      <input type=text, name="Reps", placeholder="Reps">
+      <input type=text, name="Weight", placeholder="Weight">
+      <input type=text, name="Date", placeholder="Date">
+      <input type=text, name="Unit", placeholder="Pounds or Kilograms?">
+      <input type="submit", value="Insert Row" >
+
+    </form>
+    <h2>Exercise History</h2>
+    <table style="border-collapse: collapse;"
+      <thead>
+          <th style="border-style:solid; border-width:1px; display:none">ID</th>
+          <th style="border-style:solid; border-width:1px">Exercise</th>
+          <th style="border-style:solid; border-width:1px">Reps</th>
+          <th style="border-style:solid; border-width:1px">Weight</th>
+          <th style="border-style:solid; border-width:1px">Date</th>
+          <th style="border-style:solid; border-width:1px">Pounds?</th>
+
+      </thead>
+      {{#each results}}
+      <tr>    
+          <td style="border-style:solid; border-width:1px; display:none">{{this.id}}</td>  
+          <td style="border-style:solid; border-width:1px">{{this.name}}</td>  
+          <td style="border-style:solid; border-width:1px">{{this.reps}}</td>
+          <td style="border-style:solid; border-width:1px">{{this.weight}}</td>
+          <td style="border-style:solid; border-width:1px">{{this.date}}</td>
+          <td style="border-style:solid; border-width:1px">{{this.lbs}}</td>
+
+          <input type="button" value="edit" onclick="editRow('dataTable',this)" />
+          <input type="button" value="delete" onclick="deleteRow('dataTable',this)" />
+          
+      </tr>
+      {{/each}}
+</table>
+  </body>
+</html>
