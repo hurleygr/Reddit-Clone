@@ -1,16 +1,6 @@
-// form with inputs for name of exercise, reps, weight, and date
-// submit action would be post to insert route
-// edit would be post to update route
-// after both need to get select route again. or just insert/delete row, update whatever. but what about when the site is revisited? i guess order doesn't matter.
-// but how to avoid adding stuff to table that is already there. is that ever even a worry. 
-// do i need to edit in separate page?
-// database to contain those
-// insert delete update queries
-// don't need to pull from database because everything entered in form is put in table?
-// table that shows that data
-// buttons to edit and delete every row
-// edit could just do an update and manually change table. but database rows don't have to be unique
-// so table would need primary key?
+// need page to load once. after that don't want any more gets at '/'. updates, deletes, and inserts will affect database. 
+// table can be affected directly by javascript. deletes are easy. updates and inserts needs to be validated. name/date
+// 
 
 var createError = require('http-errors');
 var express = require('express');

@@ -26,6 +26,12 @@ router.get('/reset',function(req,res,next){
 router.get('/',function(req,res,next){
   console.log(mysql)
   var context = {};
+  mysql.pool.query("INSERT INTO workouts VALUES ($1, $2, $3 $4, $5)", values, function(err, result){
+    if(err){
+      next(err);
+      return;
+    }
+    console.log('insert result', result)
   mysql.pool.query('SELECT * FROM workouts', function(err, rows, fields){
     if(err){
       next(err);
@@ -40,7 +46,7 @@ router.get('/',function(req,res,next){
 /* Insert Data. */
 router.post('/',function(req,res,next){
   var context = {};
-  console.log('inserting', req.body, req.query)
+  console.log('inserting', req.body)
   values = [req.body.Exercise, req.body.Reps, req.body.Weight, req.body.Date, req.body.Unit]
   mysql.pool.query("INSERT INTO workouts VALUES ($1, $2, $3 $4, $5)", values, function(err, result){
     if(err){
@@ -49,7 +55,7 @@ router.post('/',function(req,res,next){
     }
     console.log('insert result', result)
     context = req.body
-    res.render('layout',context);
+    res.send(context)
   });
 });
 
@@ -64,12 +70,12 @@ router.post('/update', function(req, res, next) {
         return;
       }
       context.results = "Updated " + result.changedRows + " rows.";
-      res.render('layout',context);
+      res.send(result)
     });
   });
 
 /* Delete Data. */
 router.get('/delete', function(req, res, next) {
-  res.render('layout', context);
+  res.send()
 });
 module.exports = router;

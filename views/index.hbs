@@ -1,2 +1,37 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script>
+      document.addEventListener('DOMContentLoaded', bindPost);
+      function bindPost(){
+        document.getElementById('postSubmit').addEventListener('click', function(event){
+            var req = new XMLHttpRequest();
+            //let some_text = document.getElementById('post').value;
+            req.open('POST', '/', true)
+            req.setRequestHeader('Content-Type', 'application/json')
+            req.onload = function () {
+                var response = JSON.parse(req.response)
+                console.log('req', req)
+                console.log(JSON.parse(req.response))
+                //document.getElementById('postData').textContent = response.data;
+            }
+            req.send(response)
+            event.preventDefault();
+        })
+    }
+    </script>
+  </head>
+  <body>
+    <form>
+      <input type=text, name="Exercise", placeholder="Exercise Name">
+      <input type=text, name="Reps", placeholder="Reps">
+      <input type=text, name="Weight", placeholder="Weight">
+      <input type=text, name="Date", placeholder="Date">
+      <input type=text, name="Unit", placeholder="Pounds or Kilograms?">
+      <input type="submit", id="postSubmit", value="Insert Row" >
+
+    </form>
+    
+</body>
+</html>
