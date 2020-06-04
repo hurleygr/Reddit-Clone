@@ -40,8 +40,8 @@ router.get('/',function(req,res,next){
 /* Insert Data. */
 router.post('/insert',function(req,res,next){
   var context = {};
-  console.log('inserting', req.body)
-  mysql.pool.query("INSERT INTO workouts (name, reps, weight, date, lbs) VALUES (?)", [req.query.c], function(err, result){
+  console.log('inserting', req.body, req.query)
+  mysql.pool.query("INSERT INTO workouts (name, reps, weight, date, lbs) VALUES (?)", [req.body], function(err, result){
     if(err){
       next(err);
       return;
