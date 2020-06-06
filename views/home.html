@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <script>
+                    document.addEventListener('DOMContentLoaded', bindPost);
+                    function bindPost(){
+                        document.getElementById('postSubmit').addEventListener('click', function(event){
+
+                            var req = new XMLHttpRequest();
+                            console.log('post attempt', document.getElementById("topForm"))
+                            req.open('POST', 'http://localhost:1137/', true)
+                            var formData = new FormData( document.getElementById("topForm") );
+
+                            req.onload = function () {
+                                //var response = JSON.parse(req.response)
+
+                                console.log(JSON.stringify(formData))
+                            }
+                            req.send({name:'Bench', reps:10, weight:10})
+                            event.preventDefault();
+
+                        })
+                    }
+            </script>
+        </head>
+        <body id="root">
+        <form id="topForm" >
+            <input type="text" name="Exercise" placeholder="Exercise Name">
+            <input type="text"  name="Reps" placeholder="Reps">
+            <input type="text" name="Weight" placeholder="Weight">
+            <input type="text" name="Date" placeholder="Date">
+            <input type="text" name="Unit" placeholder="Pounds or Kilograms?">
+            <input type="submit" id="postSubmit" value="Insert Row" >
+        </form>
+
+        <h2> Exercise History</h2>
+
+        <table id="exercises" style="border-collapse: collapse;">
+            <thead>
+                <th style="border-style:solid; border-width:1px; display:none">ID</th>
+                <th style="border-style:solid; border-width:1px">Exercise</th>
+                <th style="border-style:solid; border-width:1px">Reps</th>
+                <th style="border-style:solid; border-width:1px">Weight</th>
+                <th style="border-style:solid; border-width:1px">Date</th>
+                <th style="border-style:solid; border-width:1px">Pounds?</th>
+      
+            </thead>
+            <tbody id="tablebody">
+
+            </tbody>
+        </body>

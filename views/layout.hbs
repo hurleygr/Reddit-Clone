@@ -1,79 +1,53 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src = '/javascripts/scripts.js'></script>
+
+    
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script>
       document.addEventListener('DOMContentLoaded', bindPost);
-      function bindPost(){
-        document.getElementById('postSubmit').addEventListener('click', function(event){
-            var req = new XMLHttpRequest();
-            //let some_text = document.getElementById('post').value;
-            req.open('POST', '/', true)
-            req.setRequestHeader('Content-Type', 'application/json')
-            req.onload = function () {
-                var response = JSON.parse(req.response)
-                console.log('req', req)
-                console.log(JSON.parse(req.response))
-                //document.getElementById('postData').textContent = response.data;
-            }
-            req.send(response)
-            event.preventDefault();
-        })
-    }
-    function deleteRow(tableID,currentRow) {
-      try {
-          var table = document.getElementById(tableID);
-          var rowCount = table.rows.length;
-          for (var i = 0; i < rowCount; i++) {
-              var row = table.rows[i];
-              /*var chkbox = row.cells[0].childNodes[0];*/
-              /*if (null != chkbox && true == chkbox.checked)*/
-              
-              if (row==currentRow.parentNode.parentNode) {
-                  
-                  }
-                  table.deleteRow(i);
-                  rowCount--;
-                  i--;
-              }
-          }
-      }
+      document.addEventListener('submit', doStuff)
     </script>
+  
   </head>
   <body>
-    <form>
-      <input type="text" name="Exercise" placeholder="Exercise Name">
-      <input type="text"  name="Reps" placeholder="Reps">
-      <input type="text" name="Weight" placeholder="Weight">
-      <input type="text" name="Date" placeholder="Date">
-      <input type="text" name="Unit" placeholder="Pounds or Kilograms?">
+    <form id="new">
+      <input type="text" name="name" placeholder="Exercise Name">
+      <input type="number"  name="reps" placeholder="Reps">
+      <input type="number" name="weight" placeholder="Weight">
+      <input type="date" name="date" placeholder="Date">
+      <input type="number" name="lbs" placeholder="1 for lbs and 0 for kgs">
       <input type="submit" id="postSubmit" value="Insert Row" >
 
     </form>
     <h2>Exercise History</h2>
     <table id="exercises" style="border-collapse: collapse;">
       <thead>
-          <th style="border-style:solid; border-width:1px; display:none">ID</th>
-          <th style="border-style:solid; border-width:1px">Exercise</th>
-          <th style="border-style:solid; border-width:1px">Reps</th>
-          <th style="border-style:solid; border-width:1px">Weight</th>
-          <th style="border-style:solid; border-width:1px">Date</th>
-          <th style="border-style:solid; border-width:1px">Pounds?</th>
+          <th>ID</th>
+          <th>Exercise</th>
+          <th >Reps</th>
+          <th>Weight</th>
+          <th >Date</th>
+          <th>Pounds?</th>
 
       </thead>
+      <tbody id="tbody">
       {{#each results}}
+      {{log this.date}}
       <tr>    
-          <td style="border-style:solid; border-width:1px; display:none">{{this.id}}</td>  
-          <td style="border-style:solid; border-width:1px">{{this.name}}</td>  
-          <td style="border-style:solid; border-width:1px">{{this.reps}}</td>
-          <td style="border-style:solid; border-width:1px">{{this.weight}}</td>
-          <td style="border-style:solid; border-width:1px">{{this.date}}</td>
-          <td style="border-style:solid; border-width:1px">{{this.lbs}}</td>
-
-          <input type="button" value="edit" onclick="editRow('exercises',this)" />
-          <input type="button" value="delete" onclick="deleteRow('exercises',this)" />
+          <td><input id="id" type="number" value={{this.id}}></td>  
+          <td><input id="name" type="text" value="{{this.name}}"</td>  
+          <td><input id="reps" type="number" value={{this.reps}}></td>
+          <td><input id="weight" type="number" value={{this.weight}}></td>
+          <td><input id="date" type="date" value={{this.date }}></td>
+          <td><input id="lbs" type="number" value={{this.lbs}}></td>
+          <td><input type="button" name="edit" value="edit" onclick="editRow(this)"></td>
+          <td><input type="button" name="delete" value="delete" onclick="deleteRow(this)"></td>
           
+      </tr>     
        {{/each}}
+    </tbody>
     </table>
   </body>
 </html>
